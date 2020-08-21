@@ -40,7 +40,7 @@ func exec(conn, cmd string) string {
 	return conn + " result " + cmd
 }
 
-func main() {
+func DoSmth() {
 	start := time.Now()
 
 	connections := make(chan string, len(hosts))
@@ -60,6 +60,7 @@ func main() {
 	for i := range output {
 		output[i] = make(chan string, len(commands))
 	}
+
 	for conn := range connections {
 		go func(o chan string, conn string, comms []string) {
 			for _, cmd := range comms {
@@ -78,4 +79,8 @@ func main() {
 
 	duration := time.Since(start)
 	fmt.Printf("Duration: %d ms\n", duration.Milliseconds())
+}
+
+func main() {
+	DoSmth()
 }
